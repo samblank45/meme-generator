@@ -7,8 +7,12 @@ class MemeGenerator extends React.Component {
     this.state = {
       isLoading: false,
       memeImgs: [],
-      randomImg: "http://i.imgflip.com/1bij.jpg"
+      randomImg: "http://i.imgflip.com/1bij.jpg",
+      topText: "",
+      bottomText: ""
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -22,10 +26,45 @@ class MemeGenerator extends React.Component {
       })
   }
 
+  handleChange(event) {
+    const {name, value} = event.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const randomNumber = Math.floor(Math.random() * this.state.memeImgs.length)
+    const randomMemeImage = this.state.memeImgs[randomNumber].url
+    this.setState({randomImg: randomMemeImage})
+  }
+
   render() {
     return (
-      <div className="meme">
-        <img src={this.state.randomImg} alt="problem?"/>
+      <div>
+        <form className="meme-form" onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            value={this.state.topText}
+            name="topText"
+            placeholder="top text"
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            value={this.state.bottomText}
+            name="bottomText"
+            placeholder="bottom text"
+            onChange={this.handleChange}
+          />
+          <button>Go</button>
+        </form>
+        <div className="meme">
+          <img src={this.state.randomImg} alt="problem?"/>
+          <h2 className="top-text">{this.state.topText}</h2>
+          <h2 className="bottom-text">{this.state.bottomText}</h2>
+        </div>
       </div>
     )
   }

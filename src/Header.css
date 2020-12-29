@@ -2,16 +2,16 @@ header {
   height: 100px;
   display: flex;
   align-items: center;
-  background: #6441a5; /* fallback for old browsers */
+  background: #e0ba11; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #2a0845,
-    #6441a5
+    #cc02ff,
+    #b403fa
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #2a0845,
-    #6441a5
+    #d11922,
+    #82649b
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -22,14 +22,14 @@ header > img {
 
 header > p {
   font-family: VT323, monospace;
-  color: whitesmoke;
+  color: rgb(0, 0, 0);
   font-size: 50px;
   margin-left: 60px;
 }
 
 body {
   margin: 0;
-  background-color: whitesmoke;
+  background-color: rgb(34, 170, 0);
 }
 
 * {

@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Header from './Header'
 import MemeGenerator from './MemeGenerator'
+
 
 
 
@@ -14,4 +14,4 @@ function App() {
   )
 }
 
-export default App
+export default App      

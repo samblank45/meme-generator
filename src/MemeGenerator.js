@@ -14,22 +14,16 @@ class MemeGenerator extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.takeScreenShot = this.takeScreenShot.bind(this)
   }
 
    takeScreenShot() {
-    html2canvas(document.getElementById("container"), {
-        onrendered: function (canvas) {
-            var tempcanvas=document.createElement('canvas');
-            tempcanvas.width=350;
-            tempcanvas.height=350;
-            var context=tempcanvas.getContext('2d');
-            context.drawImage(canvas,112,0,288,200,0,0,350,350);
-            var link=document.createElement("a");
-            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
-            link.download = 'screenshot.jpg';
-            link.click();
-        }
+    html2canvas(document.getElementById("container"))
+    .then(function (canvas) {
+       document.body.appendChild(canvas);
+       var base64URL = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream')
     });
+
 }
 
   componentDidMount() {
@@ -70,9 +64,9 @@ class MemeGenerator extends React.Component {
           />
         </form>
           <div className="meme">
-          <img src={this.state.randomImg} alt="problem?"/>
-          <h2 className="top-text">{this.state.topText}</h2>
-          <h2 className="bottom-text">{this.state.bottomText}</h2>
+            <img id="container" src={this.state.randomImg} alt="problem?"/>
+            <h2 className="top-text">{this.state.topText}</h2>
+            <h2 className="bottom-text">{this.state.bottomText}</h2>
           </div>
         <form className="meme-form" onSubmit={this.handleSubmit}>
           <input

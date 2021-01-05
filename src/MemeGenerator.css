@@ -84,3 +84,15 @@ header > p {
   color: white;
   background: #6441a5;
 }
+
+#container{
+  width:400px;
+  height:200px;
+}
+
+button{
+  display:block;
+  height:20px;
+  margin-top:10px;
+  margin-bottom:10px;
+}

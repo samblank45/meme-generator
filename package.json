@@ -9,6 +9,7 @@
     "gl": "^4.9.0",
     "gl-react": "^5.0.0",
     "gl-react-dom": "^5.0.0",
+    "html2canvas": "^1.0.0-rc.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",

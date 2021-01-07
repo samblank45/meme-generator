@@ -80,7 +80,7 @@ class MemeGenerator extends React.Component {
         </form>
         <br/>
           <button onClick={this.takeScreenShot}>Take PICTURE</button>
-        
+          hello world
       </div>
     )
   }

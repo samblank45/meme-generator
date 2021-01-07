@@ -85,7 +85,7 @@ header > p {
   background: #6441a5;
 }
 
-button {
+.img-button {
   display: block;
   height: 30px;
   margin: 10px auto;

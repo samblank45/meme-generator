@@ -14,17 +14,7 @@ class MemeGenerator extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.takeScreenShot = this.takeScreenShot.bind(this)
   }
-
-   takeScreenShot() {
-    html2canvas(document.getElementById("container"))
-    .then(function (canvas) {
-       document.body.appendChild(canvas);
-       var base64URL = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream')
-    });
-
-}
 
   componentDidMount() {
     this.setState({isLoading: true})
@@ -63,8 +53,8 @@ class MemeGenerator extends React.Component {
             onChange={this.handleChange}
           />
         </form>
-          <div className="meme">
-            <img id="container" src={this.state.randomImg} alt="problem?"/>
+          <div  id="container" className="meme">
+            <img src={this.state.randomImg} alt="problem?"/>
             <h2 className="top-text">{this.state.topText}</h2>
             <h2 className="bottom-text">{this.state.bottomText}</h2>
           </div>
@@ -79,7 +69,7 @@ class MemeGenerator extends React.Component {
           <button>CREATE</button>
         </form>
         <br/>
-          <button onClick={this.takeScreenShot}>Take PICTURE</button>
+          <button>Take PICTURE</button>
       </div>
     )
   }

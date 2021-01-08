@@ -1,6 +1,7 @@
 import React from 'react'
 import './MemeGenerator.css'
-import html2canvas from 'html2canvas'
+import './SaveButton'
+import SaveButton from './SaveButton'
 
 class MemeGenerator extends React.Component {
   constructor() {
@@ -24,18 +25,32 @@ class MemeGenerator extends React.Component {
     let canvas = document.getElementById('card-canvas')
     let canvasRect = canvas.getBoundingClientRect()
 
-    let topText = document.getElementById('top-text')
+    let topText = document.getElementById('top')
     let topTextRect = topText.getBoundingClientRect()
 
-    let bottomText = document.getElementById('bottom-text')
+    let bottomText = document.getElementById('bottom')
     let bottomTextRect = bottomText.getBoundingClientRect()
 
     let ctx = canvas.getContext("2d")
     ctx.width = canvas.width
     ctx.height = canvas.height
 
+    //draws image
     ctx.drawImage(image, 0, 0, canvas.witdth, canvas.height )
+
+
+    //draws top text
+    ctx.textAlign = 'center'
+    ctx.textBaseline= 'top'
+    ctx.lineWidth = 6
     ctx.translate(0, topTextRect.top - canvasRect.top + 15)
+
+
+    //draws bottom text
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'top'
+    ctx.lineWidth = 6
+    ctx.translate(0, bottomTextRect.top - topTextRect.top)
 
 
     let download = document.getElementById('download')
@@ -83,8 +98,8 @@ class MemeGenerator extends React.Component {
         </form>
           <div  id="container" className="meme">
             <img id="meme-image" crossOrigin="Anonymous" src={this.state.randomImg} alt="problem?"/>
-            <h2 className="top-text">{this.state.topText}</h2>
-            <h2 className="bottom-text">{this.state.bottomText}</h2>
+            <h2 id="top" className="top-text">{this.state.topText}</h2>
+            <h2 id="bottom" className="bottom-text">{this.state.bottomText}</h2>
           </div>
          
         <form className="meme-form" onSubmit={this.handleSubmit}>
@@ -101,8 +116,9 @@ class MemeGenerator extends React.Component {
         <a type="button" className="img-button"
           id="download"
           href=""
+          onClick={this.saveImg}
           download="download.png">
-            Save
+            <SaveButton />
         </a>
         <canvas id ="card-canvas" style={{position: 'absolute'}}></canvas>
           

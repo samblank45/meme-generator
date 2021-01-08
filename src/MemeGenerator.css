@@ -86,9 +86,7 @@ header > p {
 }
 
 .img-button {
+  width: 40%;
+  margin: 1px auto;
   display: block;
-  height: 30px;
-  margin: 10px auto;
-  display: block;
-  justify-content: space-between;
 }

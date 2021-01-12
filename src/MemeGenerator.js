@@ -10,52 +10,50 @@ class MemeGenerator extends React.Component {
       isLoading: false,
       memeImgs: [],
       randomImg: "http://i.imgflip.com/1bij.jpg",
-      topText: "",
-      bottomText: ""
+      topText: "hello",
+      bottomText: "goodbye",
+      canvasWidth: "",
+      canvasHeight: "",
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.saveImg = this.saveImg.bind(this)
+    this.resizeCanvas = this.resizeCanvas.bind(this)
   }
 
 
   async saveImg() {
-
+    
     let image = document.getElementById('meme-image')
 
     let canvas = document.getElementById('card-canvas')
     let canvasRect = canvas.getBoundingClientRect()
 
-    let topText = document.getElementById('top')
-    let topTextRect = topText.getBoundingClientRect()
-
-    let bottomText = document.getElementById('bottom')
-    let bottomTextRect = bottomText.getBoundingClientRect()
-
     let ctx = canvas.getContext("2d")
-    ctx.width = canvas.width
-    ctx.height = canvas.height
+    ctx.width = image.width
+    ctx.height = image.height
+    ctx.strokeStyle = "white"
+    ctx.font = 'bold 25px impact'
+    ctx.fillStyle = 'white'
+    ctx.shadowColor="black";
+    ctx.shadowBlur= 10;
+
+    window.addEventListener("resize", this.resizeCanvas)
 
     //draws image
-    ctx.drawImage(image, 0, 0, canvas.witdth, canvas.height )
-
+    ctx.drawImage(image, 0, 0 )
 
     //draws top text
-    ctx.textAlign = 'center'
-    ctx.textBaseline= 'top'
-    ctx.lineWidth = 6
-    ctx.translate(0, topTextRect.top - canvasRect.top + 15)
-
-
+    ctx.fillText(this.state.topText.toUpperCase(), ((canvas.width / 2) - 20), 30)
     //draws bottom text
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'top'
-    ctx.lineWidth = 6
-    ctx.translate(0, bottomTextRect.top - topTextRect.top)
-
+    ctx.fillText(this.state.bottomText.toUpperCase(), ((canvas.width / 2) - 20), 200)
 
     let download = document.getElementById('download')
     let imageDownload = canvas.toDataURL("image/png")
     download.setAttribute("href", imageDownload)
+
+    //clear canvas
+    ctx.clearRect(0, 0, canvasRect.width, canvasRect.height);
   }
 
 
@@ -68,6 +66,11 @@ class MemeGenerator extends React.Component {
         console.log(memes[0].url)
         this.setState({memeImgs: memes})
       })
+      window.addEventListener("resize", this.resizeCanvas)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resizeCanvas)
   }
 
   handleChange(event) {
@@ -82,6 +85,18 @@ class MemeGenerator extends React.Component {
     const randomNumber = Math.floor(Math.random() * this.state.memeImgs.length)
     const randomMemeImage = this.state.memeImgs[randomNumber].url
     this.setState({randomImg: randomMemeImage})
+    this.resizeCanvas()
+  }
+
+    
+  resizeCanvas() {
+    console.log(this.state.randomImg)
+    let image = document.getElementById("meme-image")
+    this.setState(({
+      canvasWidth: `${image.width}px`,
+      canvasHeight: `${image.height}px`
+    }))
+    
   }
 
   render() {
@@ -120,7 +135,7 @@ class MemeGenerator extends React.Component {
           download="download.png">
             <SaveButton />
         </a>
-        <canvas id ="card-canvas" style={{position: 'absolute'}}></canvas>
+        <canvas id ="card-canvas" width={this.state.canvasWidth} height={this.state.canvasHeight} style={{position: 'absolute'}}></canvas>
           
       </div>
     )

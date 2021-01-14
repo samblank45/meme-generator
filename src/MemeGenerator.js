@@ -19,24 +19,32 @@ class MemeGenerator extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.saveImg = this.saveImg.bind(this)
     this.resizeCanvas = this.resizeCanvas.bind(this)
+    this.imageRef = React.createRef()
   }
 
 
   async saveImg() {
     
     let image = document.getElementById('meme-image')
+    let imageWidth = this.imageRef.current.clientWidth
+    let imageHeight = this.imageRef.current.clientHeight
 
     let canvas = document.getElementById('card-canvas')
     let canvasRect = canvas.getBoundingClientRect()
 
     let ctx = canvas.getContext("2d")
-    ctx.width = image.width
-    ctx.height = image.height
+    ctx.width = imageWidth
+    ctx.height = imageHeight
     ctx.strokeStyle = "white"
     ctx.font = 'bold 25px impact'
     ctx.fillStyle = 'white'
     ctx.shadowColor="black";
     ctx.shadowBlur= 10;
+    
+    console.log('----')
+    console.log(this.imageRef.current.clientHeight)
+    console.log(this.imageRef.current.clientWidth)
+    console.log('----')
 
     window.addEventListener("resize", this.resizeCanvas)
 
@@ -90,11 +98,12 @@ class MemeGenerator extends React.Component {
 
     
   resizeCanvas() {
-    console.log(this.state.randomImg)
     let image = document.getElementById("meme-image")
+    let imageWidth = this.imageRef.current.clientWidth
+    let imageHeight = this.imageRef.current.clientHeight
     this.setState(({
-      canvasWidth: `${image.width}px`,
-      canvasHeight: `${image.height}px`
+      canvasWidth: `${imageWidth}px`,
+      canvasHeight: `${imageHeight}px`
     }))
     
   }
@@ -112,7 +121,7 @@ class MemeGenerator extends React.Component {
           />
         </form>
           <div  id="container" className="meme">
-            <img id="meme-image" crossOrigin="Anonymous" src={this.state.randomImg} alt="problem?"/>
+            <img ref={this.imageRef} id="meme-image" crossOrigin="Anonymous" src={this.state.randomImg} alt="problem?"/>
             <h2 id="top" className="top-text">{this.state.topText}</h2>
             <h2 id="bottom" className="bottom-text">{this.state.bottomText}</h2>
           </div>

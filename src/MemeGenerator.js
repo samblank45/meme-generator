@@ -33,20 +33,21 @@ class MemeGenerator extends React.Component {
     let canvasRect = canvas.getBoundingClientRect()
 
     let ctx = canvas.getContext("2d")
-    ctx.width = imageWidth
-    ctx.height = imageHeight
+    canvas.width = imageWidth
+    canvas.height = imageHeight
     ctx.strokeStyle = "white"
     ctx.font = 'bold 25px impact'
     ctx.fillStyle = 'white'
     ctx.shadowColor="black";
     ctx.shadowBlur= 10;
     
-    console.log('----')
     console.log(this.imageRef.current.clientHeight)
     console.log(this.imageRef.current.clientWidth)
-    console.log('----')
+    console.log(canvas)
 
-    window.addEventListener("resize", this.resizeCanvas)
+
+    // window.addEventListener("resize", this.resizeCanvas)
+    // this.resizeCanvas(this.imageRef.current.clientWidth, this.imageRef.current.clientHeight)
 
     //draws image
     ctx.drawImage(image, 0, 0 )
@@ -97,13 +98,15 @@ class MemeGenerator extends React.Component {
   }
 
     
-  resizeCanvas() {
-    let image = document.getElementById("meme-image")
+  resizeCanvas(width, height) {
+    // let image = document.getElementById("meme-image")
     let imageWidth = this.imageRef.current.clientWidth
     let imageHeight = this.imageRef.current.clientHeight
+
+    console.log(width, height)
     this.setState(({
-      canvasWidth: `${imageWidth}px`,
-      canvasHeight: `${imageHeight}px`
+      canvasWidth: `${width}px`,
+      canvasHeight: `${height}px`
     }))
     
   }
@@ -144,7 +147,7 @@ class MemeGenerator extends React.Component {
           download="download.png">
             <SaveButton />
         </a>
-        <canvas id ="card-canvas" width={this.state.canvasWidth} height={this.state.canvasHeight} style={{position: 'absolute'}}></canvas>
+        <canvas id ="card-canvas"></canvas>
           
       </div>
     )
